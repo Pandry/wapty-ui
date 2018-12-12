@@ -1,0 +1,436 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" integrity="sha256-2pUeJf+y0ltRPSbKOeJh09ipQFYxUdct5nTY6GAXswA=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+    
+    :root{
+        --generic-white-color: #eee;
+        --generic-red-color: hsl(348, 100%, 61%);
+        --generic-blue-color: hsl(204, 86%, 53%);
+        --generic-green-color: hsl(171, 100%, 41%);
+        --generic-purple-color: hsl(276, 56%, 43%);
+
+        --bg-color: #151515;
+        --sidebar-bg-color: #002060;
+        --sidebar-button-bg-color: rgba(255,255,255, 0.1);
+        --sidebar-button-bg-color-onhover: rgba(255,255,255, 0.3);
+        --sidebar-notification-tag-bg-color: #ee0000;
+        --sidebar-notification-tag-fg-colecho "# wapty-ui" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:Pandry/wapty-ui.git
+git push -u origin masteror: var(--generic-white-color);
+        --sidebar-switch-tag-on-color: #01a767;
+        --sidebar-switch-tag-off-color: #c80032;
+        --sidebar-active-badge-color: #00A0FF;
+        
+        --intercept-top-area-bg-color: #555;
+        --intercept-top-area-main-label-color: var(--generic-white-color);
+        --intercept-top-area-tables-header-color: var(--generic-white-color);
+        --intercept-top-area-tables-color: var(--generic-white-color);
+
+        --intercept-main-textarea-bg-color: #555;
+        --intercept-main-textarea-color: var(--generic-white-color);
+
+        --intercept-tag-background: #444;
+        --intercept-row-onhover-color: #666;
+
+
+
+        --intercept-default-button-bg-color: rgba(255,255,255,0.2);
+
+    }
+
+    /*maked the HTML page dark*/
+    html {
+        background-color: var(--bg-color);
+    }
+
+    /*A class to cetner divs/texts
+    Actually used for the intecrpt area*/
+    .center {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    /*Defines the side menù base structure*/
+    .side-menu {
+        position: fixed;
+        height: 100%;
+        width: 80px;
+        background-color: var(--sidebar-bg-color);
+        top: 0;
+    }
+
+    /*This is a button in the menù*/
+    .side-menu-button{
+        margin: 10px;
+        padding: 10px;
+        width: 60px;
+        height: 60px;
+        background-color: var(--sidebar-button-bg-color);
+        border-radius: 5px;
+        color: white;
+        transition: 0.3s;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+    }
+    /*Changes the background color of the element when the mouse hovers it*/
+    .side-menu-button:hover {
+        background-color: var(--sidebar-button-bg-color-onhover);
+    }
+    /*This is the red circle with a notification inside it*/
+    .side-menu-button-notifications{
+        background-color: var(--sidebar-notification-tag-bg-color);
+        color: var(--sidebar-notification-tag-fg-color);
+        border-radius: 100px;
+        min-width: 18px;
+        padding: 0 5px 0 5px;
+        height: 18px;
+        position: absolute;
+        transform: translateX(40px) translateY(-14px) translateX(-30%);
+        text-align: center;
+        text-anchor: middle;
+        vertical-align: middle;
+        font-size: 12px;
+        display:inline-block;
+        
+    }
+
+    /*This is supposed to be a switch-like component to quickly enable or disable a feature*/
+    .side-menu-button-switch{
+        background-color: #000;
+        border-radius: 100px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateX(38px) translateY(-7px);
+        cursor: crosshair;
+    }
+    /*Background color of thwn the switch is on*/
+    .side-menu-button-switch-on{
+        background-color: var(--sidebar-switch-tag-on-color);
+    }
+
+    /*Background color of thwn the switch is off*/
+    .side-menu-button-switch-off{
+        background-color: var(--sidebar-switch-tag-off-color);
+    }
+
+    /*This is the class that is applied to the div inside the button to center its icon*/
+    .side-menu-button-content{
+        font-size: 25px;
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 50%;
+        transform: translateY(-25%);
+    }
+
+    /*This class is assigned to the active button and its effect 
+    is to add a vertical line on the left of the active icon*/
+    .active:before {
+        content: ' ';
+        height: 50px;
+        width: 4px;
+        border-radius: 100px;
+        background-color: var(--sidebar-active-badge-color);
+        position: absolute;
+        right: 73px;
+        top: 15px
+    }
+
+    /*This is the main screen, the area on the right of the menỳ*/
+    .main-content {
+        width: auto;
+        height: 100%;
+        background-color: var(--bg-color);;
+        margin: 30px;
+    }
+
+    /*This is part of the intercept area*/
+    /*Defines a top padding for the top area, to distantiate it from the op*/
+    .intercept-top-area {
+        margin-top: 20px;
+    }
+
+    /*defines a radius for the divs in the top area (History and queued request)*/
+    .intercept-top-area > div > div{
+        border-radius: 10px;
+        min-height: 200px;
+        overflow-y: auto;
+    }
+
+    /*Defines a minimum height for both the history and the queued request area*/
+    .intercept-history-panel, .intercept-queued-requests-panel{
+        background-color: var(--intercept-top-area-bg-color);
+        min-height: 200px;
+    }
+
+    /*This is the buttons row under the top area*/
+    .intercept-buttons-row{
+        margin-top: 10px;
+        display: inline-block;
+        padding: 5px;
+        left:0;
+    }
+
+    /*The single button for the current request*/
+    .intercept-button {
+        background-color: var(--intercept-default-button-bg-color);
+        border-radius: 4px;
+        color: #eee;
+        display: inline-block;
+        cursor: pointer;
+        text-align: center;
+        text-anchor: middle;
+        vertical-align: middle;
+        padding:8px;
+        margin: 5px;
+    }
+
+    /*Defines a spacing between the icon in the button and the text*/
+    .intercept-button i.fas::after{
+        content: ' ';
+        white-space: pre;
+    }
+
+    /*The drop request button; applies only a background color*/
+    .intercept-button-drop{
+     	background-color: var(--generic-red-color)
+    }
+
+    /*The forward original request button; applies only a background color*/
+    .intercept-button-forward-original{
+        background-color: var(--generic-green-color)
+    }
+
+    /*The forward request button; applies only a background color*/
+    .intercept-button-forward-modified{
+        background-color: var(--generic-blue-color);
+    }
+
+    /*The provide response button; applies only a background color*/
+    .intercept-button-provide-response{
+        background-color:  var(--generic-purple-color)
+    }
+    
+    /*This is the label above the 2 areas (queued requests and history)*/
+    .area-intestation {
+        color: var(--intercept-top-area-main-label-color);
+        margin-left: 30px;
+    }
+
+    /*This applies to the 2 tables in the top area and makes the table have things like a white color*/
+    .intecept-queued-requests-table, .intercept-history-requests-table{
+        margin: 8px;
+        color: var(--intercept-top-area-tables-header-color);
+        width: 98%;
+        table-layout:fixed;
+    }
+
+    /*The table queue and history tables header*/
+    .intecept-queued-requests-table th, .intercept-history-requests-table th{
+        color: var(--intercept-top-area-tables-color);
+    }
+
+    /*Defines the spacing from the rows bot in the history table and in the queue one*/
+    .intecept-queued-requests-table, .intercept-history-requests-table{
+        border-collapse:separate;
+        border-spacing: 2px;
+    }
+
+    /*This applies to the spans of the action and method 
+    column both in the history and the queue table
+    It gives them a "tag" look
+    Color should be added for ach type of method and action in the future*/
+    .request-method, .request-action{
+        background-color: var(--intercept-tag-background);
+        border-radius: 5px;
+        white-space: nowrap;
+    }
+    /*Adds a whitespace to both the method and action "tag" and the fast action buttons in the queue*/
+    .request-method::before,.request-method::after, .request-action::before, .request-action::after, .intercept-request-action::before, .intercept-request-action::after {
+        content: '  ';
+        white-space: pre;
+
+    }
+
+    /*Defines a different color when the mouse is over a row in both the tables*/
+    .intercept-history-requests-table tbody tr:hover, .intecept-queued-requests-table tbody tr:hover{
+        background-color: var(--intercept-row-onhover-color);
+    }
+
+    /*Some minor adjustemns to the fast action 
+    column in the queued request to make the buttons more "appealing"*/
+    .intercept-request-action{
+        border-radius: 2px;
+        max-height: 20px;
+        vertical-align: middle;
+        text-align: center;
+        margin-right: 5px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        cursor: pointer;
+    }
+
+    /*A background color for the fast-forward action*/
+    .intercept-action-fast-forward{
+        background-color: var(--generic-green-color);
+    }
+
+    /*A background color for the fast-drop action*/
+    .intercept-action-fast-drop{
+        background-color: var(--generic-red-color)
+    }
+
+    /*Main text area, when the request should appear*/
+    .intercept-main-request-textarea{
+        background-color: var(--intercept-main-textarea-bg-color);
+        color: var(--intercept-main-textarea-color);
+        border: none;
+        border-radius: 2px;
+    }
+
+    .textarea-container textarea{
+        padding: 5px;
+    }
+
+
+    </style>
+</head>
+<body>
+    <!-- This is the side menù, here the various tabs should be added
+    It would be cool to make those "draggable" in the future-->
+    <div class="side-menu">
+        <!-- Intercept -->
+        <div href="" class="side-menu-button intruder-side-button active">
+            <div class="side-menu-button-notifications">9</div>
+            <div class="side-menu-button-content">
+                 <i class="fas fa-eye"></i>
+            </div>
+            <div class="side-menu-button-switch side-menu-button-switch-on"></div>
+        </div>
+
+        <!-- History -->
+        <div href="" class="side-menu-button hstory-side-button">
+            <div class="side-menu-button-notifications">999</div>
+            <div class="side-menu-button-content">
+                    <i class="fas fa-clock"></i>
+            </div>
+
+            <div class="side-menu-button-switch side-menu-button-switch-off"></div>
+        </div>
+
+        <!-- Settings -->
+        <div href="" class="side-menu-button settings-side-button">
+            <div class="side-menu-button-content">
+                    <i class="fas fa-cogs"></i>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left: 80px;">
+        <div class="main-content">
+            <div class="columns intercept-top-area">
+                <div class="column intercept-history-area">
+                    <p class="area-intestation">History</p>
+                    <div class="intercept-history-panel">
+                        <table class="intercept-history-requests-table">
+                            <colgroup>
+                                <col span="1" style="width: 15%; padding:100px;">
+                                <col span="1" style="width: 65%;">
+                                <col span="1" style="width: 20%;text-align: left">
+                            </colgroup>
+                            <thead class="intercept-history-table-header">
+                                <th class="intercept-history-table-header-method">Method</th>
+                                <th class="intercept-history-table-header-path">Path</th>
+                                <th class="intercept-history-table-header-action">Action</th>
+                            </thead>
+                            <tbody>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                                <tr class="intercept-history-row"><td class="intercept-history-method"><span class="request-method request-method-get">GET</span></td><td class="intercept-history-path">/</td><td class="intercept-history-action"><span class="request-action request-action-forwarded">Forwarded</span></td></tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                
+                <div class="column intercept-queued-requests-area">
+                    <p class="area-intestation">Queued requests</p>
+                    <div class="intercept-queued-requests-panel">
+                        <table class="intecept-queued-requests-table">
+                            <colgroup>
+                                <col span="1" style="width: 15%;">
+                                <col span="1" style="width: 70%;">
+                                <col span="1" style="width: 100px;text-align: left">
+                            </colgroup>
+                            <thead class="intercept-queue-table-header">
+                                    <tr>
+                                      <th class="intercept-queue-table-header-method">Method</th>
+                                      <th class="intercept-queue-table-header-path">Path</th>
+                                      <th class="intercept-queue-table-header-action">Fast Action</th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="intercept-queue-row"><td class="intercept-request-method"> <span class="request-method request-method-get">GET</span></td><td class="intercept-request-path">/</td>
+                                    <td class="intercept-request-actions"><div style="display: flex"><div class="intercept-request-action intercept-action-fast-forward"><i class="fas fa-sign-out-alt"></i></div>
+                                    <div class="intercept-request-action intercept-action-fast-drop"><i class="fas fa-times-circle"></i></div></div></td>
+                                </tr>
+
+                                <tr class="intercept-queue-row"><td class="intercept-request-method"> <span class="request-method request-method-get">GET</span></td><td class="intercept-request-path">/assets/style.css</td>
+                                    <td class="intercept-request-actions"><div style="display: flex"><div class="intercept-request-action intercept-action-fast-forward"><i class="fas fa-sign-out-alt"></i></div>
+                                    <div class="intercept-request-action intercept-action-fast-drop"><i class="fas fa-times-circle"></i></div></div></td>
+                                </tr>
+
+                                <tr class="intercept-queue-row"><td class="intercept-request-method"> <span class="request-method request-method-get">GET</span></td><td class="intercept-request-path">/assets/style.js</td>
+                                    <td class="intercept-request-actions"><div style="display: flex"><div class="intercept-request-action intercept-action-fast-forward"><i class="fas fa-sign-out-alt"></i></div>
+                                        <div class="intercept-request-action intercept-action-fast-drop"><i class="fas fa-times-circle"></i></div></div></td>
+                                </tr>
+
+                                <tr class="intercept-queue-row"><td class="intercept-request-method"> <span class="request-method request-method-get">GET</span></td><td class="intercept-request-path">/assets/img/asd.jpg</td>
+                                    <td class="intercept-request-actions"><div style="display: flex"><div class="intercept-request-action intercept-action-fast-forward"><i class="fas fa-sign-out-alt"></i></div>
+                                        <div class="intercept-request-action intercept-action-fast-drop"><i class="fas fa-times-circle"></i></div></div></td>
+                                </tr>
+
+                                <tr class="intercept-queue-row"><td class="intercept-request-method"> <span class="request-method request-method-get">GET</span></td><td class="intercept-request-path">/userdata/info.dsfgjkhdf</td>
+                                    <td class="intercept-request-actions"><div style="display: flex"><div class="intercept-request-action intercept-action-fast-forward"><i class="fas fa-sign-out-alt"></i></div>
+                                        <div class="intercept-request-action intercept-action-fast-drop"><i class="fas fa-times-circle"></i></div></div></td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="center">
+                <div class="row intercept-buttons-row">
+                        <div class="intercept-button intercept-button-forward-original"><i class="fas fa-sign-out-alt"></i>Forward Original</div>
+                        <div class="intercept-button intercept-button-forward-modified"><i class="fas fa-sign-in-alt"></i>Forward Modified</div>
+                        <div class="intercept-button intercept-button-drop"><i class="fas fa-times-circle"></i>Drop</div>
+                        <div class="intercept-button intercept-button-provide-response"><i class="fas fa-pencil-alt"></i>Provide Response</div>
+                        <div class="intercept-button intercept-button-actions">Action</div>
+                        <!-- TODO: add to repeader - make actions-->
+                </div>
+                <div class="textarea-container">
+                    <textarea cols="90" rows="25" class="intercept-main-request-textarea">GET / HTTP/1.1
+Host: example.com</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
